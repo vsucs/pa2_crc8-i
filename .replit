@@ -1,0 +1,3 @@
+lang = "bash"
+#run = "javac CRC8.java && java CRC8 sample.txt sample_out.txt"
+run = "python CRC8.py sample.txt sample_out.txt"
