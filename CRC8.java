@@ -17,9 +17,24 @@ public class CRC8 {
   }
   
   public static byte crc8(byte[] data){
-    // put your code here to compute crc8
-    byte crc = 0;
-    
+    byte crcInit = 0;
+    byte poly = 0x07;
+    byte crc;
+    byte polynom;
+    int i;
+
+    crc = crcInit;
+    for (byte b : data) {
+      crc = (byte)(b ^ crc);
+      for (int j = 0; j < 8; j++) {
+        if ((crc & 0x80) != 0) {
+          crc = (byte)((crc << 1) ^ poly);
+        } else {
+          crc <<= 1;
+        }
+      }
+      crc &= 0xFF;
+    }
     return crc;
   }
 
@@ -46,7 +61,7 @@ public class CRC8 {
       System.out.println("\ncrc = " + String.format("0x%02x ", crc));
 
       // Combine input and crc to generate output file
-      //data_w_crc = 
+     data_w_crc = new byte[data.length+1];
       
       System.out.println("\nOutput");
       printByteCodes(data_w_crc);
